@@ -1,0 +1,603 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "EventAPI",
+        "version": "0.1.0",
+        "description": "Emergency events can be registered, updated or cancelled via this API\n",
+        "contact": {
+            "url": "https://esta.vic.gov.au/api",
+            "email": "apiteam@esta.vic.gov.au"
+        }
+    },
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/events": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Event"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. <br /> The request was successfully processed.\n",
+                        "schema": {
+                            "$ref": "#/definitions/EventCollectionResponse"
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/responses/400_error_response"
+                    },
+                    "401": {
+                        "$ref": "#/responses/401_error_response"
+                    },
+                    "403": {
+                        "$ref": "#/responses/403_error_response"
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_error_response"
+                    },
+                    "405": {
+                        "$ref": "#/responses/405_error_response"
+                    },
+                    "415": {
+                        "$ref": "#/responses/415_error_response"
+                    },
+                    "500": {
+                        "$ref": "#/responses/500_error_response"
+                    }
+                },
+                "security": [
+                    {
+                        "basic_auth": [
+                        ]
+                    },
+                    {
+                        "api_key": [
+                        ]
+                    }
+                ],
+                "operationId": "getAllEvents",
+                "summary": "Get a full list of events",
+                "description": "Some description of the operation.\n"
+            }
+        },
+        "/events/{event_number}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Event"
+                ],
+                "parameters": [
+                    {
+                        "name": "event_number",
+                        "description": "The event that needs to be fetched",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. <br /> The request was successfully processed.\n",
+                        "schema": {
+                            "$ref": "#/definitions/EventEmbeddedResponse"
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/responses/400_error_response"
+                    },
+                    "401": {
+                        "$ref": "#/responses/401_error_response"
+                    },
+                    "403": {
+                        "$ref": "#/responses/403_error_response"
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_error_response"
+                    },
+                    "405": {
+                        "$ref": "#/responses/405_error_response"
+                    },
+                    "415": {
+                        "$ref": "#/responses/415_error_response"
+                    },
+                    "500": {
+                        "$ref": "#/responses/500_error_response"
+                    }
+                },
+                "security": [
+                    {
+                        "basic_auth": [
+                        ]
+                    },
+                    {
+                        "api_key": [
+                        ]
+                    }
+                ],
+                "operationId": "getEventByName",
+                "summary": "Get event by event number",
+                "description": "Get event by event number\n"
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Event"
+                ],
+                "parameters": [
+                    {
+                        "name": "event_number",
+                        "description": "The event that needs to be updated",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "description": "Updated user object",
+                        "schema": {
+                            "$ref": "#/definitions/EventRequest"
+                        },
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/definitions/EventResponse"
+                    },
+                    "202": {
+                        "$ref": "#/definitions/EventResponse"
+                    },
+                    "204": {
+                        "$ref": "#/responses/204_error_response"
+                    },
+                    "400": {
+                        "$ref": "#/responses/400_error_response"
+                    },
+                    "401": {
+                        "$ref": "#/responses/401_error_response"
+                    },
+                    "403": {
+                        "$ref": "#/responses/403_error_response"
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_error_response"
+                    },
+                    "405": {
+                        "$ref": "#/responses/405_error_response"
+                    },
+                    "415": {
+                        "$ref": "#/responses/415_error_response"
+                    },
+                    "422": {
+                        "$ref": "#/responses/422_error_response"
+                    },
+                    "500": {
+                        "$ref": "#/responses/500_error_response"
+                    }
+                },
+                "security": [
+                    {
+                        "basic_auth": [
+                        ]
+                    },
+                    {
+                        "api_key": [
+                        ]
+                    }
+                ],
+                "operationId": "updateEvent",
+                "summary": "Update the event",
+                "description": "This can only be done by the logged in user.\n"
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Event"
+                ],
+                "parameters": [
+                    {
+                        "name": "event_number",
+                        "description": "The event that needs to be deleted",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/responses/200_error_response"
+                    },
+                    "202": {
+                        "$ref": "#/responses/202_error_response"
+                    },
+                    "204": {
+                        "$ref": "#/responses/204_error_response"
+                    },
+                    "400": {
+                        "$ref": "#/responses/400_error_response"
+                    },
+                    "401": {
+                        "$ref": "#/responses/401_error_response"
+                    },
+                    "403": {
+                        "$ref": "#/responses/403_error_response"
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_error_response"
+                    },
+                    "405": {
+                        "$ref": "#/responses/405_error_response"
+                    },
+                    "415": {
+                        "$ref": "#/responses/415_error_response"
+                    },
+                    "500": {
+                        "$ref": "#/responses/500_error_response"
+                    }
+                },
+                "security": [
+                    {
+                        "basic_auth": [
+                        ]
+                    },
+                    {
+                        "api_key": [
+                        ]
+                    }
+                ],
+                "operationId": "deleteEvent",
+                "summary": "Delete event",
+                "description": "This can only be done by the logged in user.\n"
+            },
+            "parameters": [
+                {
+                    "name": "event_number",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ]
+        },
+        "/echo": {
+            "post": {
+                "tags": [
+                    "Echo"
+                ],
+                "parameters": [
+                    {
+                        "name": "message",
+                        "description": "Echo payload",
+                        "schema": {
+                            "type": "string",
+                            "example": "Hello world!"
+                        },
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK. <br /> The request was successfully processed.\n",
+                        "headers": {
+                            "X-Rate-Limit": {
+                                "description": "calls per hour allowed by the user",
+                                "type": "integer",
+                                "format": "int32"
+                            },
+                            "X-Expires-After": {
+                                "description": "date in UTC when token expires",
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        },
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "application/json": "Hello world!"
+                        }
+                    },
+                    "201": {
+                        "$ref": "#/responses/201_error_response"
+                    },
+                    "202": {
+                        "$ref": "#/responses/202_error_response"
+                    },
+                    "400": {
+                        "$ref": "#/responses/400_error_response"
+                    },
+                    "401": {
+                        "$ref": "#/responses/401_error_response"
+                    },
+                    "403": {
+                        "$ref": "#/responses/403_error_response"
+                    },
+                    "404": {
+                        "$ref": "#/responses/404_error_response"
+                    },
+                    "405": {
+                        "$ref": "#/responses/405_error_response"
+                    },
+                    "415": {
+                        "$ref": "#/responses/415_error_response"
+                    },
+                    "422": {
+                        "$ref": "#/responses/422_error_response"
+                    },
+                    "500": {
+                        "$ref": "#/responses/500_error_response"
+                    }
+                },
+                "security": [
+                    {
+                        "basic_auth": [
+                        ]
+                    },
+                    {
+                        "api_key": [
+                        ]
+                    }
+                ],
+                "operationId": "echo",
+                "summary": "Echo test",
+                "description": "Receive the exact message you've sent\n"
+            }
+        }
+    },
+    "definitions": {
+        "EventCollectionResponse": {
+            "description": "The standard list response that should be used",
+            "properties": {
+                "totalRecords": {
+                    "format": "int32",
+                    "type": "number",
+                    "example": 50
+                },
+                "_links": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/HateoasResponse"
+                    }
+                },
+                "_embedded": {
+                    "$ref": "#/definitions/EventEmbeddedResponse"
+                }
+            }
+        },
+        "EventEmbeddedResponse": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "format": "int32",
+                    "type": "number",
+                    "example": 1
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/EventResponse"
+                    }
+                }
+            }
+        },
+        "HateoasResponse": {
+            "type": "object",
+            "properties": {
+                "href": {
+                    "description": "The URL to the referenced resource",
+                    "type": "string",
+                    "example": "/events"
+                },
+                "rel": {
+                    "description": "The description of the relationship between the resources",
+                    "type": "string",
+                    "example": "self"
+                },
+                "method": {
+                    "description": "The HTTP method that should be used when referencing this resource",
+                    "enum": [
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE",
+                        "PATCH"
+                    ],
+                    "type": "string",
+                    "example": "GET"
+                }
+            }
+        },
+        "Address": {
+            "description": "Address of emergency event",
+            "type": "string",
+            "example": "33 Lakeside Dr Burwood East VIC 3151"
+        },
+        "EventRequest": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "$ref": "#/definitions/Address"
+                },
+                "premisesName": {
+                    "description": "Premise name",
+                    "minLength": 1,
+                    "type": "string",
+                    "example": "Doyles Farm"
+                },
+                "startDateTime": {
+                    "description": "Start Date Time",
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "endDateTime": {
+                    "description": "End Date Time",
+                    "minLength": 1,
+                    "type": "string"
+                }
+            }
+        },
+        "EventResponse": {
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/definitions/EventRequest"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "_links": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/HateoasResponse"
+                            }
+                        }
+                    }
+                }
+            ],
+            "example": {
+                "eventNumber": 3587978965,
+                "_links": [
+                    {
+                        "href": "/events/3587978965",
+                        "rel": "self",
+                        "method": "GET"
+                    },
+                    {
+                        "href": "/events/3587978965",
+                        "rel": "updateEvent",
+                        "method": "PUT"
+                    },
+                    {
+                        "href": "/events/3587978965",
+                        "rel": "deleteEvent",
+                        "method": "DELETE"
+                    }
+                ]
+            }
+        }
+    },
+    "responses": {
+        "200_error_response": {
+            "description": "OK.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"200\",\n  \"description\": \"The request was successfully processed.\",\n  \"more_info\": \"\"\n}    \n"
+            }
+        },
+        "201_error_response": {
+            "description": "Created.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"201\",\n  \"description\": \"The resource was created. The Response Location HTTP header should be returned to indicate where the newly created resource is accessible.\",\n  \"more_info\": \"\"\n} \n"
+            }
+        },
+        "202_error_response": {
+            "description": "Accepted.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"202\",\n  \"description\": \"Used for asynchronous processing - The server has accepted the request but the result is not available yet. The Response Location HTTP header may be returned to indicate where the created resource will be accessible.\",\n  \"more_info\": \"\"\n} \n"
+            }
+        },
+        "204_error_response": {
+            "description": "No content.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"204\",\n  \"description\": \"The server successfully processed the request and is not returning any content. \",\n  \"more_info\": \"\"\n} \n"
+            }
+        },
+        "400_error_response": {
+            "description": "Bad Request.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"400\",\n  \"description\": \"The server cannot process the request.'The specified resource was not found.\",\n  \"more_info\": \"\"\n} \n"
+            }
+        },
+        "401_error_response": {
+            "description": "Unauthorised.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"401\",\n  \"description\": \"The request could not be authenticated.\",\n  \"more_info\": \"\"\n}\n"
+            }
+        },
+        "403_error_response": {
+            "description": "Forbidden.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"403\",\n  \"description\": \"The request was authenticated but is not authorised to access the resource.\",\n  \"more_info\": \"\"\n}\n"
+            }
+        },
+        "404_error_response": {
+            "description": "Not found.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"404\",\n  \"description\": \"The resource was not found.\",\n  \"more_info\": \"\"\n}\n"
+            }
+        },
+        "405_error_response": {
+            "description": "Not Allowed.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"405\",\n  \"description\": \"The method is not implemented for this resource. The response may include an Allow header containing a list of valid methods for the resource.\",\n  \"more_info\": \"\"\n}\n \n"
+            }
+        },
+        "408_error_response": {
+            "description": "Request Timeout.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"408\",\n  \"description\": \"The request timed out before a response was received.\",\n  \"more_info\": \"\"\n}\n"
+            }
+        },
+        "415_error_response": {
+            "description": "Unsupported Media Type.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"415\",\n  \"description\": \"This status code indicates that the server refuses to accept the request because the content type specified in the request is not supported by the server.\",\n  \"more_info\": \"\"\n}\n"
+            }
+        },
+        "422_error_response": {
+            "description": "Unprocessable Entity.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"422\",\n  \"description\": \"This status code indicates that the server received the request but it did not fulfil the requirements of the back end. An example is a mandatory field was not provided in the payload.\",\n  \"more_info\": \"\"\n}\n"
+            }
+        },
+        "500_error_response": {
+            "description": "Internal Server Error.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"500\",\n  \"description\": \"An internal server error. The response body may contain error messages.\",\n  \"more_info\": \"\"\n}\n \n"
+            }
+        },
+        "501_error_response": {
+            "description": "Method Not Implemented.",
+            "examples": {
+                "application/json": "{\n  \"status\": \"501\",\n  \"description\": \"It indicates that the request method is not supported by the server and cannot be handled for any resourceFor example, the server supports GET, POST, PUT, DELETE, and PATCH but not OPTIONS methods.\",\n  \"more_info\": \"\"\n}"
+            }
+        }
+    },
+    "securityDefinitions": {
+        "api_key": {
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "header"
+        },
+        "basic_auth": {
+            "type": "basic"
+        }
+    },
+    "tags": [
+        {
+            "name": "Echo",
+            "description": "Example echo operations"
+        },
+        {
+            "name": "Event",
+            "description": "Example operations about Events"
+        }
+    ]
+}
